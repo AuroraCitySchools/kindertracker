@@ -6,10 +6,25 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "A. Sams",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AuroraCitySchools/kindertracker.git"
+  },
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AuroraCitySchools/kindertracker/issues"
+  },
+  "homepage": "https://github.com/AuroraCitySchools/kindertracker#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "dateformat": "^1.0.12",
     "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "mongoose": "^4.5.7",
+    "passport": "^0.3.2",
+    "passport-auth0": "^0.5.2",
     "pug": "^2.0.0-beta3"
   }
 }
