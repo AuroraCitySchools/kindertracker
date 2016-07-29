@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="icon" href="../../favicon.ico")
+    title= pageTitle
+    link(href="/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
+    link(href="/font-awesome/css/font-awesome.css", rel="stylesheet")
+    link(href="/css/cover.css", rel="stylesheet")
+  body
+    .site-wrapper
+      .site-wrapper-inner
+        .cover-container
+          div(class="masthead clearfix")
+            .inner
+              h3.masthead-brand KinderTracker
+              nav
+                ul(class="nav masthead-nav")
+                  li
+                    a(href="/login") Login
+          .inner-cover
+            i(class="fa fa-line-chart fa-5x highlight" aria-hidden="true")
+            h1.cover-heading Welcome to KinderTracker!
+            p.lead
+              |From initial screening to progress monitoring throughout the school year, KinderTracker is here to help you manage it all.
+            p.lead
+              a(href="/login" class="btn btn-lg btn-success") Login
+
+          .mastfoot
+            .inner
+              p.highlight
+                |Designed and Engineered by the Innovation Lab at Aurora High School
+
+    
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+  script(src="/bootstrap/dist/js/bootstrap.min.js")
