@@ -3,9 +3,8 @@ var Schema = mongoose.Schema;
 
 var teacherSchema = new Schema(
   {
-    name:  [{first: String, last: String}],
-    sis_id: String,
     email: String,
+    sis_id: String,
     isAdmin: Boolean,
     lastLogin: String
   }
