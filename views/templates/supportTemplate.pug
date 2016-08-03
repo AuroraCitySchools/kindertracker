@@ -1,0 +1,25 @@
+html
+	block head
+		title= pageTitle
+		link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap-theme.min.css')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+		script(src='/bootstrap/dist/js/bootstrap.min.js')
+		link(rel='stylesheet', href='/css/ktrack.css')
+		link(href='https://fonts.googleapis.com/css?family=Varela+Round', rel='stylesheet', type='text/css')
+	block header
+		nav(class="navbar navbar-default")
+			.container-fluid
+				<!-- Brand and toggle get grouped for better mobile display -->
+				.navbar-header
+					a(href="#" class="navbar-left")
+						img(id="headerlogo" src='/images/logo.png', height='45', width='45')
+					a(class="navbar-brand" href="#")
+						|KinderTracker
+								
+	block content								
+	block footer
+		footer
+			center
+				p &#169;Aurora City Schools
+				p The Innovation Lab at Aurora High School

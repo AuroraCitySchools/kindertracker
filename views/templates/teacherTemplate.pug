@@ -1,0 +1,93 @@
+html
+	block head
+		title= pageTitle
+		link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap-theme.min.css')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+		script(src='/bootstrap/dist/js/bootstrap.min.js')
+		link(rel='stylesheet', href='/css/ktrack.css')
+		link(href='https://fonts.googleapis.com/css?family=Varela+Round', rel='stylesheet', type='text/css')
+	block header
+		nav(class="navbar navbar-default")
+			.container-fluid
+				<!-- Brand and toggle get grouped for better mobile display -->
+				.navbar-header
+					button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+							span(class="sr-only")
+								Toggle navigation
+							span(class="icon-bar")
+							span(class="icon-bar")
+							span(class="icon-bar")
+					a(href="#" class="navbar-left")
+						img(id="headerlogo" src='/images/logo.png', height='45', width='45')
+					a(class="navbar-brand" href="#")
+						|KinderTracker
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				div(class="collapse navbar-collapse" id="bs-example-navbar-collapse-1")
+					ul(class="nav navbar-nav")
+						li(class="active")
+							a(href="#")
+								|Link 
+								span(class="sr-only")
+									|(current)
+						li
+							a(href="#")
+								|Link
+						li(class="dropdown")
+							a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
+								|Dropdown 
+								span(class="caret")
+							ul(class="dropdown-menu")
+								li
+									a(href="#")
+										|Action
+								li
+									a(href="#")
+										|Another action
+								li
+									a(href="#")
+										|Something else here
+								li(role="separator" class="divider")
+								li
+									a(href="#")
+										|Separated link
+								li(role="separator" class="divider")
+								li
+									a(href="#")
+										|One more separated link
+					
+					form(class="navbar-form navbar-left")
+						.form-group
+							input(type="text" class="form-control" placeholder="Search")
+						button(type="submit" class="btn btn-default")
+							|Submit
+					ul(class="nav navbar-nav navbar-right")
+						li
+							a(href="#")
+								|Link
+						li(class="dropdown")
+							a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
+								|Dropdown
+								span(class="caret")
+							ul(class="dropdown-menu")
+								li
+									a(href="#")
+										|Action
+								li
+									a(href="#")
+										|Another action
+								li
+									a(href="#")
+										|Something else here
+								li(role="separator" class="divider")
+								li
+									a(href="#")
+										|Separated link
+								
+	block content								
+	block footer
+		footer
+			center
+				p &#169;Aurora City Schools
+				p The Innovation Lab at Aurora High School

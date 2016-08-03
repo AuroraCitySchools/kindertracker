@@ -18,40 +18,41 @@ router.get('/post-auth', function (req, res) {
   Teacher.findOne({email: req.user._json.email}).exec()
   .then(function(foundUser) {
   	if(foundUser === null) {
-			var now = new Date();
-			date = dateFormat(now, "dddd, mmmm dS ");
-			time = dateFormat(now, " h:MM TT");
-			prettyDateToDisplay = date + ' at' + time;
-			Teacher.create(
-			{ 
-				name:{first:req.user.name.givenName,last:req.user.name.familyName} ,
-		 		email: req.user._json.email,
-		 		picture: req.user._json.picture,
-				lastLogin: prettyDateToDisplay
-			})
-			.then(function(userCreationResults) {
-				req.user.msg = 'Welcome ' + req.user.name.givenName + 
-					'. You\'re into KinderTracker!';
-				req.user._id = userCreationResults;
-				res.redirect('homepage');
-			})
-			.catch(function(error) {
-				req.user.msg = error;
-				res.redirect('homepage');
+			// Send Teacher to Support Page
+			req.user.msg = "Hi " + req.user.name.givenName + ". Bad news... " + 
+				"We do not have you resistered to the " +
+				"KinderTracker system. " + 
+				"Please contact integration@aurora-schools.org " +
+				"and let them know you received this message." + 
+				" We'll get things fixed up for you quickly.";
+			res.render('support', {
+				user: req.user,
+				msg: req.user.msg,
+				pageTitle: 'Slight Problem...'
 			});
 		}
 		else {
+			// Head to the Teacher's Homepage
 			console.log("\nWe have an existing user inbound: " 
 				+ foundUser + "\n");
 			var now = new Date();
 			date = dateFormat(now, "dddd, mmmm dS ");
 			time = dateFormat(now, " h:MM TT");
-			prettyDateToDisplay = date + ' at' + time;
-			req.user.lastLogin = prettyDateToDisplay;
+			var prettyDateToDisplay = date + 'at' + time;
+			req.user.lastLogin = foundUser.lastLogin;
 			req.user._id = foundUser._id;
-			req.user.msg = 'Welcome back, ' + req.user.name.givenName + 
-				'. You last logged in on ' + req.user.lastLogin + '.';
-			res.redirect('homepage');
+			Teacher.update(
+				{email: foundUser.email}, 
+				{lastLogin: prettyDateToDisplay}
+			).exec()
+			.then(function(updateResults) {
+				req.user.msg = "Welcome back, " + req.user.name.givenName + 
+					". You last logged in on " + req.user.lastLogin + ".";
+				res.redirect('homepage');
+			})
+			.catch(function(error) {
+				console.log("Error updating last login time: " + error);
+			});
 		}
   })
   .catch(function(error) {
@@ -62,8 +63,6 @@ router.get('/post-auth', function (req, res) {
 });
 
 router.get('/homepage', function(req, res) {
-	console.log("Boom!");
-	// Check, save, then clear any inbound messages
 	if(req.user.msg) {
 		var msg = req.user.msg;
 		req.user.msg = null;
