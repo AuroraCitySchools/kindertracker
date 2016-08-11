@@ -6,6 +6,8 @@ var dateFormat = require('dateformat');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
+var getStudentInfoCache = require('../utility/getStudentInfoCache');
+
 var router = express.Router();
 
 router.use(function timeLog(req, res, next) {
@@ -39,20 +41,37 @@ router.get('/post-auth', function (req, res) {
 			date = dateFormat(now, "dddd, mmmm dS ");
 			time = dateFormat(now, " h:MM TT");
 			var prettyDateToDisplay = date + 'at' + time;
-			req.user.lastLogin = foundUser.lastLogin;
+			if(foundUser.lastLogin.length == 0) {
+				req.user.msg = "Welcome to KinderTracker!";
+			}
+			else {
+				req.user.lastLogin = foundUser.lastLogin;
+			}
 			req.user._id = foundUser._id;
 			Teacher.update(
 				{email: foundUser.email}, 
 				{lastLogin: prettyDateToDisplay}
 			).exec()
 			.then(function(updateResults) {
-				req.user.msg = "Welcome back, " + req.user.name.givenName + 
+				if(!req.user.msg) {
+					req.user.msg = "Welcome back, " + req.user.name.givenName + 
 					". You last logged in on " + req.user.lastLogin + ".";
-				res.redirect('homepage');
+				}
+				// Go get our array of student objects for caching
+				return getStudentInfoCache(foundUser.sis_id);
 			})
 			.catch(function(error) {
 				console.log("Error updating last login time: " + error);
-			});
+			})
+			.then(function(studentInfoCache) {
+				// Loading Student Info Cache for teacher
+				req.user.studentInfoCache = studentInfoCache;
+				// Ready to load homepage
+				res.redirect('homepage');
+			})
+			.catch(function(error) {
+				console.log("Error loading student information cache: " + error);
+			})
 		}
   })
   .catch(function(error) {

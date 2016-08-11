@@ -4,6 +4,8 @@ var Schema = mongoose.Schema;
 var teacherSchema = new Schema(
   {
     email: String,
+    firstname: String,
+    lastname: String,
     sis_id: String,
     isAdmin: Boolean,
     lastLogin: String
