@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 var getStudentInfoCache = require('../utility/getStudentInfoCache');
+var requiresLogin = require('../utility/requiresLogin');
 
 var router = express.Router();
 
@@ -82,7 +83,7 @@ router.get('/post-auth', function (req, res) {
 	});
 });
 
-router.get('/homepage', function(req, res) {
+router.get('/homepage', requiresLogin, function(req, res) {
 	if(req.user.msg) {
 		var msg = req.user.msg;
 		req.user.msg = null;
