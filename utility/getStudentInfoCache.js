@@ -10,6 +10,10 @@ module.exports = function(teacher_sis_id) {
 		{StudentNumber: true, _id: false}
 	).exec()
 	.then(function(arrayOfStudents){
+		// Verify that the teacher has a roster, some won't
+		if(arrayOfStudents.length === 0) {
+			return Promise.resolve(null);
+		}
 		console.dir("Array of Nums: " + arrayOfStudents);
 		// Get a name for each student number
 		return Promise.all(arrayOfStudents.map(function(student) {
@@ -32,6 +36,9 @@ module.exports = function(teacher_sis_id) {
 	  	return 0;
 		});
 		return results;
+
+		// TODO :: FETCH THE REST OF THE REQUIRED CACHE INFO FOR STUDENTS
+
 	})
 	.catch(function(error) {
 		console.error("Error getting student names: " + error);
