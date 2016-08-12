@@ -16,10 +16,10 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/post-auth', function (req, res) {
-  //see if teacher exists
-  Teacher.findOne({email: req.user._json.email}).exec()
-  .then(function(foundUser) {
-  	if(foundUser === null) {
+	//see if teacher exists
+	Teacher.findOne({email: req.user._json.email}).exec()
+	.then(function(foundUser) {
+		if(foundUser === null) {
 			// Send Teacher to Support Page
 			req.user.msg = "Hi " + req.user.name.givenName + ". Bad news... " + 
 				"We do not have you resistered to the " +
@@ -27,14 +27,15 @@ router.get('/post-auth', function (req, res) {
 				"Please contact integration@aurora-schools.org " +
 				"and let them know you received this message." + 
 				" We'll get things fixed up for you quickly.";
-			res.render('support', {
+			res.render('homepage', {
+				supportMode: true,
 				user: req.user,
 				msg: req.user.msg,
 				pageTitle: 'Slight Problem...'
 			});
 		}
 		else {
-			// Head to the Teacher's Homepage
+			// Setup Cached Data and Redirect to Home View
 			console.log("\nWe have an existing user inbound: " 
 				+ foundUser + "\n");
 			var now = new Date();
@@ -48,6 +49,7 @@ router.get('/post-auth', function (req, res) {
 				req.user.lastLogin = foundUser.lastLogin;
 			}
 			req.user._id = foundUser._id;
+			req.user.isAdmin = foundUser.isAdmin;
 			Teacher.update(
 				{email: foundUser.email}, 
 				{lastLogin: prettyDateToDisplay}
@@ -71,14 +73,13 @@ router.get('/post-auth', function (req, res) {
 			})
 			.catch(function(error) {
 				console.log("Error loading student information cache: " + error);
-			})
+			});
 		}
-  })
-  .catch(function(error) {
+	})
+	.catch(function(error) {
 		req.user.msg = error;
 		res.redirect('homepage');
 	});
-  
 });
 
 router.get('/homepage', function(req, res) {
