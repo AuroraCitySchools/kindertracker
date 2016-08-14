@@ -7,17 +7,36 @@ block content
 				if msg
 					div(class="alert alert-warning" role="alert") 
 						p #{msg}
+
+
 		if user.studentInfoCache
-			.row
-				div(class="col-xs-12")
-					table(class="table table-hover")
-						thead
-							tr
-								th Name
-						tbody
-							each student in user.studentInfoCache
-								tr
-									td= student.FirstName + ' ' + student.LastName
+			p(class="lead") This report summarizes the current progress of the #{user.numStudents} students in #{user.name.givenName}'s Homeroom class:
+			ul(id="homeview-pills" class="nav nav-pills" role="tablist")
+				li(role="presentation" class="active")
+					a(href="#rReadiness" id="rReadiness-pill" aria-controls="rReadiness" role="tab" data-toggle="pill") Reading Readiness
+				li(role="presentation")
+					a(href="#nReadiness" id="nReadiness-pill" aria-controls="nReadiness" role="tab" data-toggle="pill") Number Readiness
+				li(role="presentation")
+					a(href="#sloBreakdown" id="sloBreakdown-pill" aria-controls="sloBreakdown" role="tab" data-toggle="pill") SLO Breakdown
+		
+			div(class="tab-content")
+				div(role="tabpanel" class="tab-pane fade in active" id="rReadiness" aria-labelledby="rReadiness-pill")
+					.row
+						div(class="col-xs-12")
+							table(class="table table-hover")
+								thead
+									tr
+										th Name
+								tbody
+									each student in user.studentInfoCache
+										tr
+											td= student.FirstName + ' ' + student.LastName
+				div(role="tabpanel" class="tab-pane fade" id="nReadiness" aria-labelledby="nReadiness-pill")
+					p TODO :: Add Cached data to this number readiness view
+				div(role="tabpanel" class="tab-pane fade" id="sloBreakdown" aria-labelledby="sloBreakdown-pill")
+					p TODO :: Add Cached data to this SLO view
+
+
 		else
 			div(class="col-md-6 col-md-offset-3")
 				div(class="alert alert-warning" role="alert") 

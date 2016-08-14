@@ -69,6 +69,7 @@ router.get('/post-auth', function (req, res) {
 			.then(function(studentInfoCache) {
 				// Loading Student Info Cache for teacher
 				req.user.studentInfoCache = studentInfoCache;
+				req.user.numStudents = studentInfoCache.length;
 				// Ready to load homepage
 				res.redirect('homepage');
 			})
